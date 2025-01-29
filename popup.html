@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coding Time Tracker</title>
+  
+  <!-- FontAwesome CDN for icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="header">
+        <h2>Coding Time Tracker</h2>
+        <!-- Fire icon and streak number in the same line -->
+        <div class="streak-info">
+          <i class="fas fa-fire streak-icon"></i>
+          <span id="streak-days-count">188</span>
+        </div>
+      </div>
+
+  <!-- Time Spent on Each Website -->
+  <div class="time">
+    <span class="website leetcode">LeetCode:</span> 
+    <span id="leetcode-time">Loading...</span>
+  </div>
+  
+  <div class="time">
+    <span class="website geeksforgeeks">GeeksforGeeks:</span> 
+    <span id="geeksforgeeks-time">Loading...</span>
+  </div>
+  
+  <div class="time">
+    <span class="website codechef">CodeChef:</span> 
+    <span id="codechef-time">Loading...</span>
+  </div>
+  
+  <div class="time">
+    <span class="website codeforces">Codeforces:</span> 
+    <span id="codeforces-time">Loading...</span>
+  </div>
+
+  <!-- Set Daily Goal Section -->
+  <div class="goal-container">
+    <h3>Set Your Daily Goal</h3>
+    <div class="goal-input-container">
+      <input type="number" id="daily-goal"  min="1" placeholder="Enter daily target in minutes" />
+      <button id="submit-goal" class="submit-btn">Save</button>
+    </div>
+    <p id="goal-message" class="message"></p>
+  </div>
+
+  <!-- Weekly Progress Graph -->
+  <h2>Last Week's Progress</h2>
+  <div id="graph"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
