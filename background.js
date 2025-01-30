@@ -112,7 +112,7 @@ function updateStreak() {
         
         // Check if today's date is consecutive
         if (lastVisit === today) {
-            console.log('Already visited today!');
+            
         } else {
             // If today's date is consecutive with last visit, increment streak
             if (isConsecutiveDate(lastVisit, today)) {
@@ -157,5 +157,5 @@ function getDomain(url) {
     }
 }
 
-// Initialize storage on extension load
+// Initialize storage when extension is loaded
 initStorage();

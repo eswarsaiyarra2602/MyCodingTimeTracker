@@ -33,8 +33,14 @@
       }
     ],
     "action": {
-      "default_popup": "popup.html"
-    },
+    "default_popup": "popup.html",
+    "default_icon": {
+      "1": "icons/icon-1.png"
+    }
+  },
+  "icons": {
+    "1": "icons/icon-1.png"
+  },
     "content_security_policy": {
       "script-src": ["'self'", "'unsafe-inline'"],
       "style-src": ["'self'", "'unsafe-inline'"]
