@@ -55,10 +55,18 @@
   </div>
 
   <!-- Weekly Progress Graph -->
-  <h2>Last Week's Progress</h2>
-  <div id="graph"></div>
+<h2>Last Week's Progress</h2>
+<canvas id="graph"  height="250" style="
+    width: 100%; 
+    border: 2px solid #4CAF50; 
+    border-radius: 8px; 
+    background-color: #f4f4f9; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    margin-top: 20px;
+    margin-bottom: 20px;">
+</canvas>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="libs/chart.min.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>

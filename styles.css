@@ -1,129 +1,139 @@
-/* General Styling */
-body {
-    font-family: 'Arial', sans-serif;
-    padding: 15px;
-    width: 280px;
-    background-color: #f4f7fc;
-    color: #333;
-    margin: 0 auto;
-  }
-  
-  h2 {
-    font-size: 20px;
-    color: #4caf50;
-    margin-bottom: 10px;
-  }
-  
-  .time {
-    margin-bottom: 8px;
-    font-size: 14px;
-  }
-  
-  .website {
-    font-weight: bold;
-  }
-  
-  #graph {
-    width: 100%;
-    height: 150px;
-    margin-top: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-  }
-  
-  /* Header with fire icon */
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .streak-info {
-    margin-top: 6.5px;
-    margin-right : 5px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .streak-icon {
-    font-size: 18px;
-    color: #ff5722; /* Orange color for streak */
-    margin-right: 5px;
-  }
-  
-  #streak-days-count {
-    font-size: 16px;
-    color: #ff5722; /* Orange color for streak count */
-    font-weight: bold;
-  }
-  
-  /* Set Daily Goal Section */
-  .goal-container {
-    margin-top: 20px;
-    background-color: #fff;
-    padding: 10px 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  h3 {
-    font-size: 14px;
-    margin-bottom: 8px;
-    color: #333;
-    text-align: center;
-  }
-  
-  .goal-input-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-  }
-  
-  input[type="number"] {
-    text-align: center;
-    font-size: 18px;
-    padding: 6px;
-    width: 150px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-family: 'Arial', sans-serif;
-  }
-  
-  input[type="number"]:focus {
-    border-color: #4caf50;
-  }
-  
-  input[type="number"]::placeholder {
-    color: #999;
-    font-size: 12px;
-    font-family: 'Courier New', Courier, monospace;
-  }
-  
-  .submit-btn {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    font-size: 14px;
-    cursor: pointer;
-    border-radius: 8px;
-    width: 100px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .submit-btn:hover {
-    background-color: #388e3c;
-  }
-  
-  /* Message */
-  .message {
-    margin-top: 8px;
-    color: green;
-    font-weight: bold;
-    font-size: 12px;
-    text-align: center;
-  }
 
-  
+body {
+  font-family: 'Arial', sans-serif;
+  padding: 15px;
+  width: 280px;
+  background-color: #f4f7fc;
+  color: #333;
+  margin: 0 auto;
+}
+
+h2 {
+  font-size: 20px;
+  color: #4caf50;
+  margin-bottom: 10px;
+}
+
+.time {
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.website {
+  font-weight: bold;
+}
+
+#graph {
+  width: 100%;
+  height: 150px;
+  margin-top: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.streak-info {
+  margin-top: 6.5px;
+  margin-right : 5px;
+  display: flex;
+  align-items: center;
+}
+
+.streak-icon {
+  font-size: 18px;
+  color: #ff5722; 
+  margin-right: 5px;
+}
+
+#streak-days-count {
+  font-size: 16px;
+  color: #ff5722; 
+  font-weight: bold;
+}
+
+
+.goal-container {
+  margin-top: 20px;
+  background-color: #fff;
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #333;
+  text-align: center;
+}
+
+.goal-input-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+input[type="number"] {
+  text-align: center;
+  font-size: 18px;
+  padding: 6px;
+  width: 150px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-family: 'Arial', sans-serif;
+}
+
+input[type="number"]:focus {
+  border-color: #4caf50;
+}
+
+input[type="number"]::placeholder {
+  color: #999;
+  font-size: 12px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.submit-btn {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 8px;
+  width: 100px;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #388e3c;
+}
+
+
+.message {
+  margin-top: 8px;
+  color: green;
+  font-weight: bold;
+  font-size: 12px;
+  text-align: center;
+}
+
+.total-time {
+font-size: 16px;
+font-weight: bold;
+margin-top: 10px;
+text-align: center;
+}
+
+hr {
+border: 1px solid black;
+margin: 10px 0;
+}

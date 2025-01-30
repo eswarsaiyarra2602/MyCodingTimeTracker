@@ -1,0 +1,42 @@
+{
+    "manifest_version": 3,
+    "name": "Coding Time Tracker",
+    "version": "1.0",
+    "description": "Tracks time spent on coding platforms when the tab is active.",
+    "permissions": ["storage", "tabs", "activeTab"],
+    "host_permissions": [
+      "https://leetcode.com/*",
+      "https://www.leetcode.com/*",
+      "https://geeksforgeeks.org/*",
+      "https://www.geeksforgeeks.org/*",
+      "https://codechef.com/*",
+      "https://www.codechef.com/*",
+      "https://codeforces.com/*",
+      "https://www.codeforces.com/*"
+    ],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "content_scripts": [
+      {
+        "matches": [
+          "https://leetcode.com/*",
+          "https://www.leetcode.com/*",
+          "https://geeksforgeeks.org/*",
+          "https://www.geeksforgeeks.org/*",
+          "https://codechef.com/*",
+          "https://www.codechef.com/*",
+          "https://codeforces.com/*",
+          "https://www.codeforces.com/*"
+        ],
+        "js": ["content.js"]
+      }
+    ],
+    "action": {
+      "default_popup": "popup.html"
+    },
+    "content_security_policy": {
+      "script-src": ["'self'", "'unsafe-inline'"],
+      "style-src": ["'self'", "'unsafe-inline'"]
+    }
+  }
