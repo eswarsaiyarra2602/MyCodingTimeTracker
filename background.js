@@ -1,7 +1,7 @@
 let activeTab = null;
 let startTime = null;
 const codingSites = ["leetcode.com", "geeksforgeeks.org", "codechef.com", "codeforces.com"];
-const today = new Date().toISOString().split('T')[0]; // 'yyyy-mm-dd' format
+const today = new Date().toISOString().split('T')[0]; 
 
 // Initialize Storage if not present
 function initStorage() {
@@ -10,7 +10,7 @@ function initStorage() {
             const initialData = {
                 streak: 0,
                 lastVisitDate: '',
-                dailyGoal: 120, // Default daily goal in minutes
+                dailyGoal: 120, // Default 
                 timeSpentOnDay: {}, 
                 timeSpentOnWebsites: { 
                     "leetcode.com": 0,

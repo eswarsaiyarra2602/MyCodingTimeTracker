@@ -15,9 +15,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const streak = codingData.streak || 0;
         const timeSpentOnDay = codingData.timeSpentOnDay || {};
         const dailyGoal = codingData.dailyGoal || 0;
-        
+
+        console.log("Calling updateGraph with:", timeSpentOnDay);
         updateGraph(timeSpentOnDay);    
 
+        // Update individual platform times
         Object.entries(platforms).forEach(([domain, elementId]) => {
             let timeSpent = timeSpentOnWebsites[domain] || 0;
             const element = document.getElementById(elementId);
@@ -32,13 +34,14 @@ document.addEventListener("DOMContentLoaded", () => {
         if (totalTimeElement) {
             totalTimeElement.textContent = `Total Time Today: ${formatTime(totalTimeToday)}`;
         }
-        
-        // Streak
+
+        // Streak update
         const streakElement = document.getElementById('streak-days-count');
         if (streakElement) {
             streakElement.textContent = streak > 0 ? streak : 0;  
         }
 
+        // Goal achievement message
         const goalMessageElement = document.getElementById('goal-message');
         if (totalTimeToday >= dailyGoal * 60) {
             goalMessageElement.textContent = "Daily Target Achieved !!";
@@ -48,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// Time format function
+// Function to format time
 function formatTime(seconds) {
     let h = Math.floor(seconds / 3600);
     let m = Math.floor((seconds % 3600) / 60);
@@ -56,39 +59,26 @@ function formatTime(seconds) {
     return `${h}h ${m}m ${s}s`;
 }
 
+
 function updateGraph(timeSpentOnDay) {
     console.log("Data passed to updateGraph:", timeSpentOnDay);
+    
     const today = new Date();
-    const todayDate = today.toLocaleDateString(); 
-
+    const todayDate = today.toISOString().split("T")[0];
+    
     const lastWeekDates = [];
     const lastWeekData = [];
 
-    let hasPreviousData = false;
-
     for (let i = 6; i >= 0; i--) {
         const date = new Date(today);
-        date.setDate(today.getDate() - i); // Go back i days
-        const formattedDate = date.toLocaleDateString(); 
+        date.setDate(today.getDate() - i);
+        const formattedDate = date.toISOString().split("T")[0]; 
+
         lastWeekDates.push(formattedDate);
 
-        // Check if there is data for this date
-        if (timeSpentOnDay[formattedDate] !== undefined) {
-            // data exists for this day, push the value
-            lastWeekData.push(timeSpentOnDay[formattedDate] || 0);
-            hasPreviousData = true;
-        } else {
-            // If no data for this day, push 0
-            lastWeekData.push(0);
-        }
+        lastWeekData.push(timeSpentOnDay[formattedDate] !== undefined ? timeSpentOnDay[formattedDate] : 0);
     }
 
-    // If no previous data exists, fill the graph with 0 for all days
-    if (!hasPreviousData) {
-        lastWeekData.fill(0);
-    }
-
-    // Convert seconds to minutes
     const lastWeekDataInMinutes = lastWeekData.map(seconds => Math.floor(seconds / 60));
 
     // Create the chart
@@ -161,7 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Save goal 
+    // Save goal
     saveButton.addEventListener("click", () => {
         const goal = parseInt(goalInput.value, 10);
         if (!isNaN(goal) && goal > 0) {
