@@ -1,7 +1,7 @@
 let activeTab = null;
 let startTime = null;
 const codingSites = ["leetcode.com", "geeksforgeeks.org", "codechef.com", "codeforces.com"];
-const today = new Date().toISOString().split('T')[0]; 
+const today = new Date().toISOString().split('T')[0];
 
 // Initialize Storage if not present
 function initStorage() {
@@ -10,7 +10,7 @@ function initStorage() {
             const initialData = {
                 streak: 0,
                 lastVisitDate: '',
-                dailyGoal: 120, // Default 
+                dailyGoal: 120, // Default goal in seconds
                 timeSpentOnDay: {}, 
                 timeSpentOnWebsites: { 
                     "leetcode.com": 0,
@@ -26,49 +26,64 @@ function initStorage() {
     });
 }
 
-// Event listener for tab activation (Switching tabs)
+// Save time spent before a tab reloads or switches
+function saveAndResetTime() {
+    if (activeTab && startTime) {
+        const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+        if (elapsedTime > 0) {
+            console.log(`Saving time for ${activeTab}: ${elapsedTime} seconds`);
+            saveTime(activeTab, elapsedTime);
+        }
+    }
+    startTime = Date.now(); // Reset start time
+}
+
+// Event listener for tab updates (includes reload)
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+    if (changeInfo.status === "complete" && tab.url) {
+        const domain = getDomain(tab.url);
+        console.log(`Page loaded: ${tab.url}`);
+
+        if (activeTab && domain === activeTab) {
+            console.log("Tab reloaded, continuing time tracking...");
+            saveAndResetTime();
+        } else {
+            handleTabChange(tab.url);
+        }
+    }
+});
+
+// Event listener for switching tabs
 chrome.tabs.onActivated.addListener(activeInfo => {
     chrome.tabs.get(activeInfo.tabId, tab => {
         if (tab && tab.url) {
+            console.log(`Tab activated: ${tab.url}`);
             handleTabChange(tab.url);
         }
     });
 });
 
-// Event listener for tab updates (Reloading pages, changing URLs)
-chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-    if (changeInfo.status === "complete" && tab.url) {
-        handleTabChange(tab.url);
-    }
-});
-
-// Event listener for tab removal (Closing tabs)
+// Event listener for tab closure
 chrome.tabs.onRemoved.addListener((tabId, removeInfo) => {
-    if (activeTab) {
-        const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
-        if (elapsedTime > 0) {
-            saveTime(activeTab, elapsedTime);
-        }
-        activeTab = null;
-        startTime = null;
-    }
+    saveAndResetTime();
+    activeTab = null;
 });
 
-// Handle tab changes (Switching tabs or closing them)
+// Handle tab changes (switching tabs or closing them)
 function handleTabChange(url) {
     const domain = getDomain(url);
 
-    // If switching from a coding site, save the time spent
-    if (activeTab && codingSites.includes(activeTab)) {
-        const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
-        if (elapsedTime > 0) {
-            saveTime(activeTab, elapsedTime);
-        }
+    if (activeTab === domain) {
+        console.log("Already tracking this site, ignoring duplicate switch.");
+        return; // Prevent double counting if user stays on the same site
     }
 
-    // If the new tab is a coding site, start tracking time
+    // Save time for previous site
+    saveAndResetTime();
+
+    // Start tracking new site if it's a coding site
     if (codingSites.includes(domain)) {
-        console.log(`Switched to ${domain}`);
+        console.log(`Switched to coding site: ${domain}`);
         activeTab = domain;
         startTime = Date.now();
         updateStreak();
@@ -90,11 +105,7 @@ function saveTime(site, seconds) {
         currentData.timeSpentOnWebsites[site] = newTime;
 
         // Update total time for the day
-        if (currentData.timeSpentOnDay[today]) {
-            currentData.timeSpentOnDay[today] += seconds;
-        } else {
-            currentData.timeSpentOnDay[today] = seconds;
-        }
+        currentData.timeSpentOnDay[today] = (currentData.timeSpentOnDay[today] || 0) + seconds;
 
         // Save updated data to Chrome Storage
         chrome.storage.local.set({ 'codingData': currentData }, function() {
@@ -109,22 +120,11 @@ function updateStreak() {
     chrome.storage.local.get('codingData', function(result) {
         const currentData = result.codingData || {};
         const lastVisit = currentData.lastVisitDate;
-        
-        // Check if today's date is consecutive
-        if (lastVisit === today) {
-            
-        } else {
-            // If today's date is consecutive with last visit, increment streak
-            if (isConsecutiveDate(lastVisit, today)) {
-                currentData.streak += 1;
-            } else {
-                // Reset streak if not consecutive
-                currentData.streak = 1;
-            }
 
+        if (lastVisit !== today) {
+            currentData.streak = isConsecutiveDate(lastVisit, today) ? currentData.streak + 1 : 1;
             currentData.lastVisitDate = today;
-
-            // Save streak data
+            
             chrome.storage.local.set({ 'codingData': currentData }, function() {
                 console.log(`Updated streak: ${currentData.streak}`);
             });
@@ -136,19 +136,16 @@ function updateStreak() {
 function isConsecutiveDate(lastVisit, today) {
     const lastDate = new Date(lastVisit);
     const todayDate = new Date(today);
-
-    const diff = (todayDate - lastDate) / (1000 * 60 * 60 * 24);
-    return diff === 1;
+    return (todayDate - lastDate) / (1000 * 60 * 60 * 24) === 1;
 }
 
-// Extract domain from URL (case insensitive)
+// Extract domain from URL
 function getDomain(url) {
     try {
         if (!url || url.startsWith("chrome://") || url.startsWith("about:blank") || url.startsWith("data:")) {
             console.log(`Invalid URL: ${url}`);
             return ""; 
         }
-
         const parsedUrl = new URL(url);
         return parsedUrl.hostname.replace("www.", "").toLowerCase();
     } catch (error) {
@@ -157,5 +154,5 @@ function getDomain(url) {
     }
 }
 
-// Initialize storage when extension is loaded
+// Initialize storage on extension load
 initStorage();
