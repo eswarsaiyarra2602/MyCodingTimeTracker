@@ -1,10 +1,18 @@
-1. Daily and Weekly Analytics 📊
-	•	Graphs/Charts: Visual representation of the time spent on coding platforms using bar charts, pie charts, and line graphs to help you track your progress. 📈
-	•	Weekly Progress Report: A breakdown of time spent daily over the past week, allowing you to analyze trends and identify your most productive days. 🗓️
+# Coding Time Tracker ⏳
 
-2. Streaks Tracking 🔥
-	•	Track how many consecutive days you’ve visited coding platforms, motivating you to keep your learning streak going! 💪
+<p align="center">
+  <img src="icons/image1.png" alt="Project Preview" width="400">
+</p>
 
-3. Daily Goal Tracking 🎯
-	•	Set daily goals for the amount of time you wish to spend on coding platforms. ⏱️
-	•	Receive notifications and alerts when you successfully meet your daily target! ✅
+Track and analyze your time spent on coding platforms like **LeetCode, CodeChef, GeeksforGeeks, and CodeForces** with interactive graphs, streak tracking, and daily goal reminders! 🚀  
+
+## ✨ Features
+- **📊 Analytics:** graphs to track progress.
+- **🔥 Streaks:** See how many consecutive days you’ve coded.
+- **🎯 Daily Goals:** Set targets and get alerts when you achieve them.  
+
+## 🚀 Get Started
+1. Clone the repo & load the extension.
+2. Start tracking your coding time effortlessly!
+
+---
